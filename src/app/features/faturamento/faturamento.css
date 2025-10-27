@@ -1,0 +1,318 @@
+/* Import base styles */
+@import url('../tarefas/tarefas.css');
+
+/* Empresa Section */
+.empresa-section {
+  margin: 1.5rem 0;
+}
+
+.section-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 1rem;
+}
+
+.empresa-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.stat-icon-empresa {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background-color: #dbeafe;
+  color: #1d4ed8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+}
+
+/* Stats variants */
+.stat-red .stat-icon {
+  background-color: #fef2f2;
+  color: #dc2626;
+}
+
+.stat-teal .stat-icon {
+  background-color: #f0fdfa;
+  color: #0d9488;
+}
+
+.stat-default .stat-icon {
+  background-color: #f3f4f6;
+  color: #6b7280;
+}
+
+/* Faturamento Cards */
+.faturamentos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 1.5rem;
+}
+
+.faturamento-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: all 0.2s ease;
+}
+
+.faturamento-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.faturamento-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.faturamento-info {
+  flex: 1;
+}
+
+.faturamento-referencia {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 0.5rem 0;
+}
+
+.faturamento-cliente {
+  color: #4b5563;
+  margin: 0 0 0.25rem 0;
+  font-size: 0.875rem;
+}
+
+.faturamento-empresa {
+  color: #6b7280;
+  margin: 0;
+  font-size: 0.75rem;
+}
+
+.faturamento-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-icon {
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  background: #f3f4f6;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.875rem;
+}
+
+.btn-icon:hover {
+  background: #e5e7eb;
+}
+
+.btn-icon.btn-delete:hover {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+/* Faturamento Details */
+.faturamento-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #f3f4f6;
+}
+
+.faturamento-value {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.value-label {
+  font-size: 0.75rem;
+  color: #6b7280;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.value-amount {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #059669;
+}
+
+.faturamento-status {
+  display: flex;
+  align-items: flex-start;
+}
+
+.status-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.status-pending {
+  background-color: #fef3c7;
+  color: #d97706;
+}
+
+.status-invoiced {
+  background-color: #dbeafe;
+  color: #1d4ed8;
+}
+
+.status-sent {
+  background-color: #e0e7ff;
+  color: #5b21b6;
+}
+
+.status-paid {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.status-cancelled {
+  background-color: #fee2e2;
+  color: #dc2626;
+}
+
+.status-default {
+  background-color: #f3f4f6;
+  color: #6b7280;
+}
+
+.faturamento-date {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  grid-column: span 2;
+}
+
+.date-label {
+  font-size: 0.75rem;
+  color: #6b7280;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.date-value {
+  color: #4b5563;
+  font-size: 0.875rem;
+}
+
+/* Empty State */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+  text-align: center;
+  grid-column: 1 / -1;
+}
+
+.empty-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.empty-message {
+  color: #6b7280;
+  font-size: 1rem;
+}
+
+/* Dialog Styles */
+.dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.dialog-content {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  max-width: 400px;
+  width: 90%;
+  max-height: 85vh;
+  overflow: hidden;
+}
+
+.dialog-header {
+  padding: 1.5rem 1.5rem 0 1.5rem;
+}
+
+.dialog-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0;
+}
+
+.dialog-body {
+  padding: 1rem 1.5rem;
+  color: #6b7280;
+}
+
+.dialog-footer {
+  padding: 0 1.5rem 1.5rem 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.btn-danger {
+  background-color: #dc2626;
+  color: white;
+  border: 1px solid #dc2626;
+}
+
+.btn-danger:hover {
+  background-color: #b91c1c;
+  border-color: #b91c1c;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .faturamentos-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .empresa-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .faturamento-details {
+    grid-template-columns: 1fr;
+  }
+  
+  .faturamento-date {
+    grid-column: span 1;
+  }
+}
