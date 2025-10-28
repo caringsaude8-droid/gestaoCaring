@@ -1,0 +1,65 @@
+<div class="tea-layout">
+  <div class="tea-sidebar" [class.collapsed]="collapsed">
+    <!-- Header -->
+    <div class="sidebar-header">
+      <div class="logo-section" *ngIf="!collapsed">
+        <div class="logo-container">
+          <div class="logo-placeholder" *ngIf="!logoUrl">
+            <i class="icon-brain"></i>
+          </div>
+          <img *ngIf="logoUrl" [src]="logoUrl" alt="Logo da empresa" class="logo-image" />
+        </div>
+        <div class="brand">
+          <h1>TEA</h1>
+          <p>Caring</p>
+        </div>
+      </div>
+      
+      <div class="logo-collapsed" *ngIf="collapsed">
+        <div class="logo-placeholder-small">
+          <i class="icon-brain"></i>
+        </div>
+      </div>
+      
+      <button class="toggle-btn" (click)="toggleCollapsed()">
+        <i [class]="collapsed ? 'icon-menu' : 'icon-chevron-left'"></i>
+      </button>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navigation">
+      <!-- TEA Menu Items -->
+      <a *ngFor="let item of teaMenuItems" 
+         [routerLink]="item.url"
+         class="nav-item"
+         routerLinkActive="active"
+         [routerLinkActiveOptions]="{ exact: item.url === '/tea' }">
+        <i [class]="'icon-' + item.icon"></i>
+        <span *ngIf="!collapsed">{{item.title}}</span>
+      </a>
+    </nav>
+
+    <!-- Footer -->
+    <div class="sidebar-footer">
+      <div *ngIf="!collapsed && profile" class="user-info">
+        <p class="user-name">{{profile.nome}}</p>
+        <p class="user-role">{{profile.perfil}}</p>
+      </div>
+      
+      <button class="logout-btn" (click)="signOut()">
+        <i class="icon-logout"></i>
+        <span *ngIf="!collapsed">Sair</span>
+      </button>
+      
+      <div *ngIf="!collapsed" class="version-info">
+        <p class="system-name">Módulo TEA</p>
+        <p class="version">v1.0.0</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="tea-main-content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

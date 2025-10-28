@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class LogoService {
-  private readonly DEFAULT_LOGO = 'assinatura-caring.png';
+  private readonly DEFAULT_LOGO = 'assets/logoCaring.png';
   private logoUrlSubject: BehaviorSubject<string>;
   
   // Observable for components to subscribe to logo changes

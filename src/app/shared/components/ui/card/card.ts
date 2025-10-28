@@ -90,3 +90,5 @@ export class CardFooterComponent {
     return `flex items-center p-6 pt-0 ${this.className}`;
   }
 }
+
+

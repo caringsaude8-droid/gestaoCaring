@@ -28,17 +28,18 @@
 
   <!-- Navigation -->
   <nav class="navigation">
-    <!-- Dashboard -->
-    <a routerLink="/dashboard" 
-       class="nav-item" 
+    <!-- Menu items básicos -->
+    <a *ngFor="let item of getMenuItems()" 
+       [routerLink]="item.url"
+       class="nav-item"
        routerLinkActive="active"
        [routerLinkActiveOptions]="{ exact: true }">
-      <i class="icon-dashboard"></i>
-      <span *ngIf="!collapsed">Dashboard</span>
+      <i [class]="'icon-' + item.icon"></i>
+      <span *ngIf="!collapsed">{{item.title}}</span>
     </a>
 
-    <!-- Cadastros with submenu -->
-    <div class="nav-group">
+    <!-- Cadastros with submenu - só aparece quando não está nas páginas básicas e não está na página de usuários -->
+    <div *ngIf="!isBasicMenuPage() && !isUsuariosPage()" class="nav-group">
       <button class="nav-item submenu-trigger" 
               [class.active]="isCadastrosActive()"
               (click)="toggleCadastros()">
@@ -62,18 +63,10 @@
       </div>
     </div>
 
-    <!-- Other menu items -->
-    <a *ngFor="let item of menuItems.slice(1)" 
-       [routerLink]="item.url"
-       class="nav-item"
-       routerLinkActive="active"
-       [routerLinkActiveOptions]="{ exact: false }">
-      <i [class]="'icon-' + item.icon"></i>
-      <span *ngIf="!collapsed">{{item.title}}</span>
-    </a>
 
-    <!-- Admin menu items -->
-    <div *ngIf="isAdmin()">
+
+    <!-- Admin menu items - só aparecem quando não está nas páginas básicas e não está na página de usuários -->
+    <div *ngIf="isAdmin() && !isBasicMenuPage() && !isUsuariosPage()">
       <a *ngFor="let item of adminMenuItems" 
          [routerLink]="item.url"
          class="nav-item"

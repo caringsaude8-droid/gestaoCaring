@@ -1,0 +1,162 @@
+<div class="tea-cadastros-container">
+  <!-- Header -->
+  <div class="cadastros-header">
+    <h1 class="cadastros-title">Cadastros TEA</h1>
+    <p class="cadastros-subtitle">Gerenciamento de pacientes e profissionais</p>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs-container">
+    <div class="tabs">
+      <button 
+        class="tab-btn"
+        [class.active]="activeTab === 'patients'"
+        (click)="setActiveTab('patients')">
+        <i class="icon-users"></i>
+        Pacientes
+        <span class="tab-count">{{patients.length}}</span>
+      </button>
+      <button 
+        class="tab-btn"
+        [class.active]="activeTab === 'therapists'"
+        (click)="setActiveTab('therapists')">
+        <i class="icon-doctor"></i>
+        Terapeutas
+        <span class="tab-count">{{therapists.length}}</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Search and Actions -->
+  <div class="actions-bar">
+    <div class="search-container">
+      <i class="icon-search"></i>
+      <input 
+        type="text" 
+        placeholder="Pesquisar..."
+        [(ngModel)]="searchTerm"
+        (input)="onSearch()"
+        class="search-input">
+    </div>
+    <button class="add-btn" (click)="openAddModal()">
+      <i class="icon-plus"></i>
+      Novo {{activeTab === 'patients' ? 'Paciente' : 'Terapeuta'}}
+    </button>
+  </div>
+
+  <!-- Patients Tab -->
+  <div *ngIf="activeTab === 'patients'" class="content-section">
+    <div class="patients-grid">
+      <div *ngFor="let patient of filteredPatients" class="patient-card">
+        <div class="patient-header">
+          <div class="patient-avatar">
+            <i class="icon-user"></i>
+          </div>
+          <div class="patient-info">
+            <h3 class="patient-name">{{patient.name}}</h3>
+            <p class="patient-details">{{patient.age}} anos • {{patient.spectrum}}</p>
+          </div>
+          <div class="patient-status" [class]="'status-' + patient.status">
+            {{getPatientStatusLabel(patient.status)}}
+          </div>
+        </div>
+        
+        <div class="patient-content">
+          <div class="info-row">
+            <span class="info-label">Terapeuta:</span>
+            <span class="info-value">{{patient.therapist}}</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Última Sessão:</span>
+            <span class="info-value">{{patient.lastSession}}</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Progresso:</span>
+            <div class="progress-bar">
+              <div class="progress-fill" [style.width.%]="patient.progressLevel"></div>
+            </div>
+            <span class="progress-text">{{patient.progressLevel}}%</span>
+          </div>
+        </div>
+        
+        <div class="patient-actions">
+          <button class="action-btn action-view">
+            <i class="icon-eye"></i>
+            Ver Detalhes
+          </button>
+          <button class="action-btn action-edit">
+            <i class="icon-edit"></i>
+            Editar
+          </button>
+          <button class="action-btn action-calendar">
+            <i class="icon-calendar"></i>
+            Agendar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Therapists Tab -->
+  <div *ngIf="activeTab === 'therapists'" class="content-section">
+    <div class="therapists-grid">
+      <div *ngFor="let therapist of filteredTherapists" class="therapist-card">
+        <div class="therapist-header">
+          <div class="therapist-avatar">
+            <i class="icon-doctor"></i>
+          </div>
+          <div class="therapist-info">
+            <h3 class="therapist-name">{{therapist.name}}</h3>
+            <p class="therapist-specialty">{{therapist.specialty}}</p>
+          </div>
+          <div class="therapist-status" [class]="'status-' + therapist.status">
+            {{getTherapistStatusLabel(therapist.status)}}
+          </div>
+        </div>
+        
+        <div class="therapist-content">
+          <div class="info-row">
+            <span class="info-label">Email:</span>
+            <span class="info-value">{{therapist.email}}</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Telefone:</span>
+            <span class="info-value">{{therapist.phone}}</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Pacientes Ativos:</span>
+            <span class="info-value highlight">{{therapist.activePatients}}</span>
+          </div>
+        </div>
+        
+        <div class="therapist-actions">
+          <button class="action-btn action-view">
+            <i class="icon-eye"></i>
+            Ver Perfil
+          </button>
+          <button class="action-btn action-edit">
+            <i class="icon-edit"></i>
+            Editar
+          </button>
+          <button class="action-btn action-patients">
+            <i class="icon-users"></i>
+            Pacientes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="(activeTab === 'patients' && filteredPatients.length === 0) || 
+              (activeTab === 'therapists' && filteredTherapists.length === 0)" 
+       class="empty-state">
+    <i class="icon-empty"></i>
+    <h3>Nenhum {{activeTab === 'patients' ? 'paciente' : 'terapeuta'}} encontrado</h3>
+    <p>{{searchTerm ? 'Tente ajustar os filtros de busca' : 'Comece cadastrando um novo ' + (activeTab === 'patients' ? 'paciente' : 'terapeuta')}}</p>
+    <button class="add-btn" (click)="openAddModal()">
+      <i class="icon-plus"></i>
+      Novo {{activeTab === 'patients' ? 'Paciente' : 'Terapeuta'}}
+    </button>
+  </div>
+</div>

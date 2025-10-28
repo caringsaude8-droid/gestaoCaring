@@ -1,0 +1,21 @@
+/* === CARING DESIGN SYSTEM - VARIÁVEIS === */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Caring Brand Colors */
+  --caring-red: #c2111a;
+  --caring-teal: #549aa1;
+  --caring-red-light: rgba(194, 17, 26, 0.1);
+  --caring-teal-light: rgba(84, 154, 161, 0.1);
+  
+  /* Core System */
+  --background: #fafafa;
+  --foreground: #1f2937;
+  --card: #ffffff;
+  --border: rgba(194, 17, 26, 0.2);
+  --radius: 8px;
+  
+  /* Shadows */
+  --shadow: 0 2px 10px rgba(194, 17, 26, 0.1);
+  --shadow-hover: 0 8px 25px rgba(194, 17, 26, 0.15);
+}

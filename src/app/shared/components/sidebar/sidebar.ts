@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
+import { Router, RouterModule, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { LogoService } from '../../services/logo.service';
 
 interface MenuItem {
@@ -26,9 +27,24 @@ export class Sidebar implements OnInit, OnDestroy {
   cadastrosOpen = false;
   profile: any = null;
   logoUrl: string | null = null;
+  currentRoute: string = '';
   private logoSubscription?: Subscription;
+  private routeSubscription?: Subscription;
 
-  menuItems: MenuItem[] = [
+  // Itens básicos que aparecem sempre
+  basicMenuItems: MenuItem[] = [
+    { title: "Home", url: "/home", icon: "home" },
+    { title: "Calendário", url: "/calendario", icon: "calendar" },
+  ];
+
+  // Menu apenas com Home para página de usuários
+  usuariosMenuItems: MenuItem[] = [
+    { title: "Home", url: "/home", icon: "home" },
+  ];
+
+  // Itens completos que aparecem apenas no dashboard
+  fullMenuItems: MenuItem[] = [
+    { title: "Home", url: "/home", icon: "home" },
     { title: "Dashboard", url: "/dashboard", icon: "dashboard" },
     { title: "Tarefas", url: "/tarefas", icon: "tasks" },
     { title: "Faturamento", url: "/faturamento", icon: "money" },
@@ -64,11 +80,22 @@ export class Sidebar implements OnInit, OnDestroy {
     this.logoSubscription = this.logoService.logoUrl$.subscribe(logoUrl => {
       this.logoUrl = logoUrl;
     });
+
+    // Subscribe to route changes
+    this.currentRoute = this.router.url;
+    this.routeSubscription = this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => {
+        this.currentRoute = event.urlAfterRedirects;
+      });
   }
 
   ngOnDestroy() {
     if (this.logoSubscription) {
       this.logoSubscription.unsubscribe();
+    }
+    if (this.routeSubscription) {
+      this.routeSubscription.unsubscribe();
     }
   }
 
@@ -81,6 +108,7 @@ export class Sidebar implements OnInit, OnDestroy {
   }
 
   isActive(path: string): boolean {
+    if (path === "/home") return this.router.url === "/home" || this.router.url === "/";
     if (path === "/dashboard") return this.router.url === "/dashboard";
     return this.router.url.startsWith(path);
   }
@@ -93,9 +121,47 @@ export class Sidebar implements OnInit, OnDestroy {
     return this.profile?.perfil === 'admin' || this.profile?.perfil === 'administrador';
   }
 
+  // Verifica se está nas páginas que devem mostrar menu básico
+  isBasicMenuPage(): boolean {
+    return this.currentRoute === '/home' || 
+           this.currentRoute === '/' ||
+           this.currentRoute.startsWith('/calendario');
+  }
+
+  // Verifica se está na página de usuários (deve mostrar apenas Home)
+  isUsuariosPage(): boolean {
+    return this.currentRoute.startsWith('/usuarios');
+  }
+
+  // Verifica se deve mostrar menu completo (quando está no dashboard ou suas sub-rotas)
+  shouldShowFullMenu(): boolean {
+    return this.currentRoute.startsWith('/dashboard') || 
+           this.currentRoute.startsWith('/tarefas') ||
+           this.currentRoute.startsWith('/faturamento') ||
+           this.currentRoute.startsWith('/controle-reajustes') ||
+           this.currentRoute.startsWith('/calendario') ||
+           this.currentRoute.startsWith('/configuracoes') ||
+           this.currentRoute.startsWith('/clientes') ||
+           this.currentRoute.startsWith('/pacientes') ||
+           this.currentRoute.startsWith('/profissionais') ||
+           this.currentRoute.startsWith('/empresas') ||
+           this.currentRoute.startsWith('/notificacoes-usuarios');
+  }
+
+  // Retorna os itens do menu baseado na rota atual
+  getMenuItems(): MenuItem[] {
+    if (this.isUsuariosPage()) {
+      return this.usuariosMenuItems;
+    }
+    if (this.isBasicMenuPage()) {
+      return this.basicMenuItems;
+    }
+    return this.fullMenuItems;
+  }
+
   signOut() {
     console.log('Sign out');
-    this.router.navigate(['/auth']);
+    this.router.navigate(['/login']);
   }
 
   navigateTo(url: string) {
