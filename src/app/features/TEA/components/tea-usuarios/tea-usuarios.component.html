@@ -2,8 +2,8 @@
   <!-- Header -->
   <div class="usuarios-header">
     <div class="header-info">
-      <h1 class="usuarios-title">Gestão de Usuários</h1>
-      <p class="usuarios-subtitle">Gerenciar usuários, perfis e permissões do sistema</p>
+      <h1 class="usuarios-title">Usuários TEA</h1>
+      <p class="usuarios-subtitle">Gerenciar usuários do módulo TEA</p>
     </div>
     <button class="add-user-btn" (click)="openAddUserModal()">
       <i class="icon-plus"></i>
@@ -61,8 +61,9 @@
       
       <select class="filter-select" [(ngModel)]="selectedPerfil" (change)="onPerfilChange()">
         <option value="">Todos os Perfis</option>
-        <option value="admin">Administrador</option>
-        <option value="terapeuta">Admin TEA</option>
+        <option value="terapeuta">Terapeuta</option>
+        <option value="recepcao">Recepção</option>
+        <option value="supervisor">Supervisor</option>
       </select>
       
       <select class="filter-select" [(ngModel)]="selectedStatus" (change)="onStatusChange()">
@@ -136,20 +137,20 @@
     </button>
   </div>
 
-  <!-- User Details Modal -->
-  <app-user-details-modal 
+  <!-- User Form Modal -->
+  <app-tea-user-form-modal 
+    [show]="showUserFormModal"
+    [mode]="formMode"
+    [user]="selectedUser"
+    (close)="closeUserFormModal()"
+    (save)="onSaveUser($event)">
+  </app-tea-user-form-modal>
+
+  <!-- Modal de Detalhes do Usuário TEA -->
+  <app-tea-user-details-modal
     [show]="showUserDetailsModal"
     [user]="selectedUser"
     (close)="closeUserDetailsModal()"
     (editUser)="editUser($event)">
-  </app-user-details-modal>
-
-  <!-- User Form Modal -->
-  <app-user-form-modal
-    [show]="showUserFormModal"
-    [user]="selectedUser"
-    [mode]="formMode"
-    (close)="closeUserFormModal()"
-    (save)="onSaveUser($event)">
-  </app-user-form-modal>
+  </app-tea-user-details-modal>
 </div>

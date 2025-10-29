@@ -101,6 +101,19 @@ export class Sidebar implements OnInit, OnDestroy {
 
   toggleCollapsed() {
     this.collapsed = !this.collapsed;
+    this.updateMainContentMargin();
+  }
+
+  private updateMainContentMargin() {
+    // Atualiza a classe CSS do elemento main para ajustar a margem
+    const mainElement = document.querySelector('main');
+    if (mainElement) {
+      if (this.collapsed) {
+        mainElement.classList.add('sidebar-collapsed');
+      } else {
+        mainElement.classList.remove('sidebar-collapsed');
+      }
+    }
   }
 
   toggleCadastros() {

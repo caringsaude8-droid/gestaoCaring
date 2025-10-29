@@ -16,7 +16,7 @@
   padding: 2rem;
   border-radius: 16px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-  border-left: 4px solid #c2111a;
+  border-left: 4px solid #1e40af;
 }
 
 .header-info {
@@ -26,7 +26,7 @@
 .usuarios-title {
   font-size: 2.5rem;
   font-weight: 700;
-  background: linear-gradient(135deg, #c2111a, #e11d48);
+  background: linear-gradient(135deg, #1e40af, #1d4ed8);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -178,9 +178,9 @@
 
 .search-input:focus {
   outline: none;
-  border-color: #c2111a;
+  border-color: #1e40af;
   background: white;
-  box-shadow: 0 0 0 3px rgba(194, 17, 26, 0.1);
+  box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
 }
 
 .filter-select {
@@ -196,7 +196,7 @@
 
 .filter-select:focus {
   outline: none;
-  border-color: #c2111a;
+  border-color: #1e40af;
 }
 
 .clear-filters-btn {
@@ -234,7 +234,7 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   border: 1px solid #e2e8f0;
   transition: all 0.3s ease;
-  border-left: 4px solid #c2111a;
+  border-left: 4px solid #1e40af;
   display: flex;
   align-items: center;
   min-height: 80px;
@@ -270,7 +270,7 @@
 .avatar-placeholder {
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #c2111a 0%, #e11d48 100%);
+  background: linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -324,8 +324,10 @@
   white-space: nowrap;
 }
 
-.perfil-admin { background: #f3e8ff; color: #7c3aed; }
+/* Badge Colors - TEA Theme */
 .perfil-terapeuta { background: #dbeafe; color: #1d4ed8; }
+.perfil-recepcao { background: #fce7f3; color: #be185d; }
+.perfil-supervisor { background: #f3e8ff; color: #7c3aed; }
 
 .status-ativo { background: #d1fae5; color: #059669; }
 .status-inativo { background: #fee2e2; color: #dc2626; }

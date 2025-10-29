@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { UserDetailsModalComponent } from './components/user-details-modal/user-details-modal.component';
-import { UserFormModalComponent } from './components/user-form-modal/user-form-modal.component';
+// import removido
+import { TeaUserFormModalComponent } from './components/tea-user-form-modal/tea-user-form-modal.component';
+import { TeaUserDetailsModalComponent } from './components/tea-user-details-modal/tea-user-details-modal.component';
 
-interface User {
+interface TeaUser {
   id: string;
   cpf: string;
   nome: string;
   email: string;
   telefone: string;
-  perfil: 'admin' | 'terapeuta' | 'recepcao' | 'supervisor';
+  perfil: 'terapeuta' | 'recepcao' | 'supervisor';
   status: 'ativo' | 'inativo';
   dataUltimoAcesso: string;
   dataCriacao: string;
@@ -26,36 +27,24 @@ interface UserStats {
 }
 
 @Component({
-  selector: 'app-usuarios',
+  selector: 'app-tea-usuarios',
   standalone: true,
-  imports: [CommonModule, FormsModule, UserDetailsModalComponent, UserFormModalComponent],
-  templateUrl: './usuarios.component.html',
-  styleUrls: ['./usuarios.component.css']
+  imports: [CommonModule, FormsModule, TeaUserFormModalComponent, TeaUserDetailsModalComponent],
+  templateUrl: './tea-usuarios.component.html',
+  styleUrls: ['./tea-usuarios.component.css']
 })
-export class UsuariosComponent implements OnInit {
+export class TeaUsuariosComponent implements OnInit {
   searchTerm: string = '';
   selectedPerfil: string = '';
   selectedStatus: string = '';
   showUserDetailsModal: boolean = false;
   showUserFormModal: boolean = false;
   formMode: 'create' | 'edit' = 'create';
-  selectedUser: User | null = null;
+  selectedUser: TeaUser | null = null;
   
-  users: User[] = [
+  users: TeaUser[] = [
     {
       id: '1',
-      cpf: '123.456.789-01',
-      nome: 'Ana Santos Silva',
-      email: 'ana.santos@caring.com',
-      telefone: '(11) 99999-0001',
-      perfil: 'admin',
-      status: 'ativo',
-      dataUltimoAcesso: '2024-01-26',
-      dataCriacao: '2023-01-15',
-      departamento: 'Administração'
-    },
-    {
-      id: '2',
       cpf: '234.567.890-12',
       nome: 'Dr. Pedro Lima Costa',
       email: 'pedro.lima@caring.com',
@@ -68,7 +57,7 @@ export class UsuariosComponent implements OnInit {
       departamento: 'TEA'
     },
     {
-      id: '5',
+      id: '2',
       cpf: '456.789.012-34',
       nome: 'Julia Ferreira',
       email: 'julia.ferreira@caring.com',
@@ -79,10 +68,22 @@ export class UsuariosComponent implements OnInit {
       dataCriacao: '2024-01-15',
       especialidades: ['Psicologia'],
       departamento: 'TEA'
+    },
+    {
+      id: '3',
+      cpf: '567.890.123-45',
+      nome: 'Carlos Mendes',
+      email: 'carlos.mendes@caring.com',
+      telefone: '(11) 99999-0006',
+      perfil: 'supervisor',
+      status: 'ativo',
+      dataUltimoAcesso: '2024-01-24',
+      dataCriacao: '2023-06-10',
+      departamento: 'TEA'
     }
   ];
 
-  filteredUsers: User[] = [];
+  filteredUsers: TeaUser[] = [];
 
   constructor() {}
 
@@ -132,8 +133,9 @@ export class UsuariosComponent implements OnInit {
 
   getPerfilLabel(perfil: string): string {
     const labels: { [key: string]: string } = {
-      'admin': 'Administrador',
-      'terapeuta': 'Admin TEA'
+      'terapeuta': 'Terapeuta',
+      'recepcao': 'Recepção',
+      'supervisor': 'Supervisor'
     };
     return labels[perfil] || perfil;
   }
@@ -176,14 +178,14 @@ export class UsuariosComponent implements OnInit {
     this.showUserFormModal = true;
   }
 
-  editUser(user: User): void {
+  editUser(user: TeaUser): void {
     this.formMode = 'edit';
     this.selectedUser = user;
     this.showUserFormModal = true;
     this.closeUserDetailsModal();
   }
 
-  viewUserDetails(user: User): void {
+  viewUserDetails(user: TeaUser): void {
     this.selectedUser = user;
     this.showUserDetailsModal = true;
   }
@@ -200,7 +202,7 @@ export class UsuariosComponent implements OnInit {
   }
 
   onSaveUser(userData: any): void {
-    const userToSave: User = {
+    const userToSave: TeaUser = {
       ...userData,
       id: userData.id.toString(),
       dataUltimoAcesso: typeof userData.dataUltimoAcesso === 'string' ? userData.dataUltimoAcesso : userData.dataUltimoAcesso.toISOString(),
@@ -214,7 +216,7 @@ export class UsuariosComponent implements OnInit {
         dataUltimoAcesso: new Date().toISOString(),
         dataCriacao: new Date().toISOString()
       });
-      console.log('Usuário criado:', userToSave);
+      console.log('Usuário TEA criado:', userToSave);
     } else {
       // Editar usuário existente
       const index = this.users.findIndex(u => u.id === userToSave.id);
@@ -224,7 +226,7 @@ export class UsuariosComponent implements OnInit {
           dataUltimoAcesso: this.users[index].dataUltimoAcesso,
           dataCriacao: this.users[index].dataCriacao
         };
-        console.log('Usuário atualizado:', userToSave);
+        console.log('Usuário TEA atualizado:', userToSave);
       }
     }
     

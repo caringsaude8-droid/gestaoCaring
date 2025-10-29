@@ -6,8 +6,9 @@ import { LoginComponent } from './core/login/login.component';
 import { HomeComponent } from './features/home';
 import { TeaClinicaComponent } from './features/TEA/components/tea-clinica/tea-clinica.component';
 import { TeaDashboardComponent } from './features/TEA/components/tea-dashboard/tea-dashboard.component';
-import { TeaCadastrosComponent } from './features/TEA/components/tea-cadastros/tea-cadastros.component';
+import { TeaPacientesComponent } from './features/TEA/components/tea-pacientes/tea-pacientes.component';
 import { TeaCalendarioComponent } from './features/TEA/components/tea-calendario/tea-calendario.component';
+import { TeaUsuariosComponent } from './features/TEA/components/tea-usuarios/tea-usuarios.component';
 import { CalendarioComponent } from './features/gestao-caring/calendario/calendario';
 import { ConfiguracoesComponent } from './features/gestao-caring/configuracoes/configuracoes';
 import { TarefasComponent } from './features/gestao-caring/tarefas/tarefas';
@@ -46,8 +47,9 @@ export const routes: Routes = [
       { path: '', redirectTo: 'clinica', pathMatch: 'full' },
       { path: 'clinica', component: TeaClinicaComponent },
       { path: 'dashboard', component: TeaDashboardComponent },
-      { path: 'cadastros', component: TeaCadastrosComponent },
+  { path: 'pacientes', component: TeaPacientesComponent },
       { path: 'calendario', component: TeaCalendarioComponent },
+      { path: 'usuarios', component: TeaUsuariosComponent },
     ]
   },
   { path: '**', redirectTo: '/home' }

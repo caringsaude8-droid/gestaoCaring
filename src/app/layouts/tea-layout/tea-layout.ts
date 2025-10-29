@@ -29,8 +29,9 @@ export class TeaLayoutComponent implements OnInit, OnDestroy {
     { title: "Home", url: "/home", icon: "home" },
     { title: "Dashboard", url: "/tea/dashboard", icon: "dashboard" },
     { title: "TEA Clínica", url: "/tea/clinica", icon: "brain" },
-    { title: "Cadastros", url: "/tea/cadastros", icon: "users" },
-    { title: "Calendário", url: "/tea/calendario", icon: "calendar" }
+  { title: "Pacientes", url: "/tea/pacientes", icon: "users" },
+    { title: "Calendário", url: "/tea/calendario", icon: "calendar" },
+    { title: "Usuários", url: "/tea/usuarios", icon: "users" }
   ];
 
   teaMenuItems: MenuItem[] = [];
@@ -75,6 +76,19 @@ export class TeaLayoutComponent implements OnInit, OnDestroy {
 
   toggleCollapsed() {
     this.collapsed = !this.collapsed;
+    this.updateMainContentMargin();
+  }
+
+  private updateMainContentMargin() {
+    // Atualiza a classe CSS do elemento main para ajustar a margem
+    const mainElement = document.querySelector('.tea-main-content');
+    if (mainElement) {
+      if (this.collapsed) {
+        mainElement.classList.add('sidebar-collapsed');
+      } else {
+        mainElement.classList.remove('sidebar-collapsed');
+      }
+    }
   }
 
   isActive(path: string): boolean {
